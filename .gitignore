@@ -1,0 +1,17 @@
+*.DS_Store
+*.properties
+*.jar
+*.iml
+.idea/
+# Local .terraform directories
+**/.terraform/*
+
+# .tfstate files
+*.tfstate
+*.tfstate.*
+*target/*
+*dependency-reduced-pom.xml*
+# MISC
+*EMR.sh*
+
+
