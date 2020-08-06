@@ -16,8 +16,15 @@ Frequency
 -  
  
 
-Output
+Interaction
 -
 
+To interact with Scala Shell on EMR ssh into the cluster and type commands running r5d.xlarge.
+    
+        /usr/lib/flink/bin/start-scala-shell.sh yarn -s 4 -jm 10728m -tm 10728m
+        
+ * -s: number of slots = number of cores
+ * -jm: job manager memory
+ * -tm: taskmanager memory
 
         

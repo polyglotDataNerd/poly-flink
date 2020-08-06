@@ -12,6 +12,6 @@
 *target/*
 *dependency-reduced-pom.xml*
 # MISC
-*EMR.sh*
+#*EMR.sh*
 
 
