@@ -38,6 +38,7 @@ object FlinkLoader extends java.io.Serializable {
       needs to set flink-conf.yaml with AWS keys to run local with ENV Variable
       https://stackoverflow.com/questions/48460533/how-to-set-presto-s3-xxx-properties-when-running-flink-from-an-ide
        */
+
       FileSystem.initialize(GlobalConfiguration.loadConfiguration(System.getenv("FLINK_CONF_DIR")), PluginUtils.createPluginManagerFromRootFolder(config))
       val benv: ExecutionEnvironment = ExecutionEnvironment.createLocalEnvironment(config)
       //runFlink(benv)
