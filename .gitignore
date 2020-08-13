@@ -1,5 +1,6 @@
 *.DS_Store
 *.properties
+*.yaml
 *.jar
 *.iml
 .idea/
