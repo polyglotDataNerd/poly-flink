@@ -28,7 +28,7 @@ object FlinkLoader extends java.io.Serializable {
       hadoopConfig.set("fs.s3a.secret.key", utils.getSSMParam("/s3/polyglotDataNerd/admin/SecretKey"))
       hadoopConfig.set("fs.s3a.endpoint", "s3.us-west-2.amazonaws.com")
       hadoopConfig.set("fs.s3a.fast.upload", "true")
-      //hadoopConfig.set("orc.impl", "native")
+      hadoopConfig.set("orc.compress", "SNAPPY")
       //hadoopConfig.set("orc.enableVectorizedReader", "true")
 
       val config: org.apache.flink.configuration.Configuration = new org.apache.flink.configuration.Configuration()
@@ -43,8 +43,8 @@ object FlinkLoader extends java.io.Serializable {
 
       FileSystem.initialize(GlobalConfiguration.loadConfiguration(System.getenv("FLINK_CONF_DIR")), PluginUtils.createPluginManagerFromRootFolder(config))
       val benv: ExecutionEnvironment = ExecutionEnvironment.createLocalEnvironment(config)
-      runFlink(benv)
-      //new TableAPI(benv, "s3a://poly-testing/covid/orc/combined/", hadoopConfig).batchORC()
+      //runFlink(benv)
+      new TableAPI(benv, "s3a://poly-testing/covid/orc/combined/", hadoopConfig).batchORC()
       benv.executeAsync("app_test")
     }
     catch {
