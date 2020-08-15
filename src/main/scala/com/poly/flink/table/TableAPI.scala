@@ -2,14 +2,13 @@ package com.poly.flink.table
 
 import org.apache.flink.api.scala.ExecutionEnvironment
 import org.apache.flink.orc.OrcTableSource
-import org.apache.flink.table.api._
-import org.apache.flink.table.api.scala.BatchTableEnvironment
+import org.apache.flink.table.api.scala.{BatchTableEnvironment, table2RowDataSet}
 import org.apache.hadoop.conf.Configuration
 
 class TableAPI(env: ExecutionEnvironment, source: String, conf: Configuration) {
 
   def batchORC(): Unit = {
-      val tableEnv = BatchTableEnvironment.create(env)
+    val tableEnv = BatchTableEnvironment.create(env)
     val orc = OrcTableSource
       .builder()
       .path(source, true)
@@ -17,11 +16,11 @@ class TableAPI(env: ExecutionEnvironment, source: String, conf: Configuration) {
       .withConfiguration(conf)
       .build()
 
+
+    orc.getTableSchema
     tableEnv.registerTableSource("orcTable", orc)
-    val orcTable: Table = tableEnv.sqlQuery("select * from orcTable order by last_updated desc limit 10")
-    orcTable.getSchema
-    tableEnv.execute("job_test")
-    env.executeAsync("job_test2")
+    val orcTable = tableEnv.sqlQuery("select * from orcTable where state = 'New York' order by last_updated desc limit 100").collect()
+    orcTable.foreach(x=>println(x.toString))
   }
 
 }
