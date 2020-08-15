@@ -45,7 +45,6 @@ object FlinkLoader extends java.io.Serializable {
       val benv: ExecutionEnvironment = ExecutionEnvironment.createLocalEnvironment(config)
       //runFlink(benv)
       new TableAPI(benv, "s3a://poly-testing/covid/orc/combined/", hadoopConfig).batchORC()
-      benv.executeAsync("app_test")
     }
     catch {
       case e: Exception => {
