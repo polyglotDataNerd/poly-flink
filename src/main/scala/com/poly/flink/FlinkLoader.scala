@@ -1,5 +1,8 @@
 package com.poly.flink
 
+import com.poly.flink.dataset.Sets
+import com.poly.flink.datastream.Streams
+import com.poly.flink.datatable.Tables
 import com.poly.utils.{ConfigProps, Utils}
 import org.apache.flink.api.scala._
 import org.apache.flink.configuration.GlobalConfiguration
@@ -46,19 +49,25 @@ object FlinkLoader extends java.io.Serializable {
       /*stream environment*/
       val senv: StreamExecutionEnvironment = StreamExecutionEnvironment.createLocalEnvironment(Runtime.getRuntime.availableProcessors(), config)
 
-      /*
+      if (args(0).equals("batch")) {
         // basic word count using batch execution reading and s3 file
-        runFlink(benv)
+        new Sets(benv).batchSet(args(1))
+      }
 
-        // socket stream that listens to a host and port with a delimiter
-        new Streams(senv).sockets("127.0.0.1", 9000, "\n")
-
-        // file stream with s3 path param
-        new Streams(senv).files("s3a://poly-testing/covid/combined/covid19_combined.gz")
-
+      if (args(0).equals("batchtable")) {
         // batch table using BatchTableEnvironment and ORC file as the source
-        new TableAPI(benv, "s3a://poly-testing/covid/orc/combined/", hadoopConfig).batchORC()
-       */
+        new Tables(benv, args(1), hadoopConfig).batchORC()
+      }
+
+      if (args(0).equals("socketstream")) {
+        // socket stream that listens to a host and port with a delimiter
+        new Streams(senv).sockets(args(1), args(2).toInt, args(3))
+      }
+
+      if (args(0).equals("filestream")) {
+        // file stream with s3 path param
+        new Streams(senv).files(args(1))
+      }
     }
     catch {
       case e: Exception => {

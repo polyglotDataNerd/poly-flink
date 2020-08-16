@@ -5,10 +5,10 @@ import org.apache.flink.api.scala._
 
 class Sets(bEnv: ExecutionEnvironment) {
 
-  def batchSet(): Unit = {
+  def batchSet(sourcePath: String): Unit = {
     try {
       val input = bEnv
-        .readTextFile("s3a://poly-testing/covid/combined/")
+        .readTextFile(sourcePath)
         //\w+ matches one or more word characters
         .flatMap(_.toLowerCase().replaceAll("\"", "").split("\\W+"))
         .filter(_.nonEmpty)
