@@ -1,11 +1,11 @@
-package com.poly.flink.table
+package com.poly.flink.datatable
 
 import org.apache.flink.api.scala.ExecutionEnvironment
 import org.apache.flink.orc.OrcTableSource
 import org.apache.flink.table.api.scala.{BatchTableEnvironment, table2RowDataSet}
 import org.apache.hadoop.conf.Configuration
 
-class TableAPI(env: ExecutionEnvironment, source: String, conf: Configuration) {
+class Tables(env: ExecutionEnvironment, source: String, conf: Configuration) {
 
   def batchORC(): Unit = {
     val tableEnv = BatchTableEnvironment.create(env)
