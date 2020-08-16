@@ -38,7 +38,7 @@ class Streams(env: StreamExecutionEnvironment) extends Serializable {
 
     //print check without Parallelism
     wordCountWindow.print().setParallelism(1)
-    env.executeAsync("word count sockets")
+    env.executeAsync("word count filestream")
   }
 
 }

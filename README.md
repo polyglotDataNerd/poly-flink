@@ -14,12 +14,19 @@ TODO:
 Batch
 -
 
+    flink run poly-flink-1.0-development.jar "batch" "s3a://poly-testing/covid/combined/"
+
 Stream
 -  
+    flink run poly-flink-1.0-development.jar "socketstream" "127.0.0.1" 9000 "\n"
+    
+    flink run poly-flink-1.0-development.jar "filestream" "s3a://poly-testing/covid/combined/"
  
 
 Table
 -
+    
+    flink run poly-flink-1.0-development.jar "batchtable" "s3a://poly-testing/covid/orc/combined/"
 
 To interact with Scala Shell on EMR ssh into the cluster and type commands running r5d.xlarge.
     

@@ -44,10 +44,14 @@ object FlinkLoader extends java.io.Serializable {
 
       FileSystem.initialize(GlobalConfiguration.loadConfiguration(System.getenv("FLINK_CONF_DIR")), PluginUtils.createPluginManagerFromRootFolder(config))
 
-      /*batch environment*/
-      val benv: ExecutionEnvironment = ExecutionEnvironment.createLocalEnvironment(config)
-      /*stream environment*/
-      val senv: StreamExecutionEnvironment = StreamExecutionEnvironment.createLocalEnvironment(Runtime.getRuntime.availableProcessors(), config)
+      /*batch local environment*/
+      //val benv: ExecutionEnvironment = ExecutionEnvironment.createLocalEnvironment(config)
+      /*stream local environment*/
+      //val senv: StreamExecutionEnvironment = StreamExecutionEnvironment.createLocalEnvironment(Runtime.getRuntime.availableProcessors(), config)
+
+      /* run in a flink cluster that's not local i.e. personal laptop */
+      val benv: ExecutionEnvironment = ExecutionEnvironment.getExecutionEnvironment
+      val senv: StreamExecutionEnvironment = StreamExecutionEnvironment.getExecutionEnvironment
 
       if (args(0).equals("batch")) {
         // basic word count using batch execution reading and s3 file
