@@ -1,15 +1,10 @@
 import com.poly.flink.utils.Schemas
-import junit.framework.TestCase
 import org.apache.orc._
-import org.junit.Test
-import org.junit.Before
-import org.junit.jupiter.api.Assertions.assertTrue
-//import org.junit.jupiter.api.BeforeAll
-import org.junit.platform.runner.JUnitPlatform
-import org.junit.runner.RunWith
+import org.junit.Assert.assertTrue
+import org.junit.{Before, Test}
 
-@RunWith(classOf[JUnitPlatform])
-object FlinkTests extends TestCase {
+// scalatest with JUnit 4
+class FlinkTests {
 
   /* underscore Default initializer */
   var schema: TypeDescription = _
