@@ -37,6 +37,7 @@ object FlinkLoader extends java.io.Serializable {
       config.setString("s3a.endpoint", "s3.us-west-2.amazonaws.com")
       config.setString("s3a.fast.upload", "true")
       config.setInteger("parallelism", Runtime.getRuntime.availableProcessors())
+
       /*
       needs to set flink-conf.yaml with AWS keys to run local with ENV Variable
       https://stackoverflow.com/questions/48460533/how-to-set-presto-s3-xxx-properties-when-running-flink-from-an-ide
