@@ -6,7 +6,7 @@ import org.apache.flink.orc.OrcTableSource
 import org.apache.flink.table.api.bridge.scala._
 import org.apache.hadoop.conf.Configuration
 
-class Tables(env: ExecutionEnvironment, source: String, conf: Configuration) {
+class Tables(env: ExecutionEnvironment, source: String, conf: Configuration) extends Serializable {
 
   private val schemas: Schemas = new Schemas()
 
