@@ -92,19 +92,19 @@
             <artifactId>flink-table-common</artifactId>
             <version>1.11.1</version>
             <!--  <scope>provided</scope> for Flink API table is ran outside of local clusters will usually have this dependency -->
-<!--                        <scope>provided</scope>-->
+            <!--                        <scope>provided</scope>-->
         </dependency>
         <dependency>
             <groupId>org.apache.flink</groupId>
             <artifactId>flink-table-planner_2.11</artifactId>
             <version>1.11.1</version>
-<!--                        <scope>provided</scope>-->
+            <!--                        <scope>provided</scope>-->
         </dependency>
         <dependency>
             <groupId>org.apache.flink</groupId>
             <artifactId>flink-table-planner-blink_2.11</artifactId>
             <version>1.11.1</version>
-<!--                        <scope>provided</scope>-->
+            <!--                        <scope>provided</scope>-->
         </dependency>
         <dependency>
             <groupId>org.apache.orc</groupId>
@@ -262,20 +262,58 @@
                     </includes>
                 </configuration>
             </plugin>
+            <!--            <plugin>-->
+            <!--                <groupId>org.scalatest</groupId>-->
+            <!--                <artifactId>scalatest-maven-plugin</artifactId>-->
+            <!--                <version>2.0.0</version>-->
+            <!--                <configuration>-->
+            <!--                    <reportsDirectory>${project.build.directory}/surefire-reports</reportsDirectory>-->
+            <!--                    <junitxml>junit</junitxml>-->
+            <!--                    <filereports>TestSuite.txt</filereports>-->
+            <!--                </configuration>-->
+            <!--                <executions>-->
+            <!--                    <execution>-->
+            <!--                        <id>test</id>-->
+            <!--                        <goals>-->
+            <!--                            <goal>test</goal>-->
+            <!--                        </goals>-->
+            <!--                    </execution>-->
+            <!--                </executions>-->
+            <!--            </plugin>-->
             <plugin>
-                <groupId>org.scalatest</groupId>
-                <artifactId>scalatest-maven-plugin</artifactId>
-                <version>2.0.0</version>
+                <groupId>net.alchim31.maven</groupId>
+                <artifactId>scala-maven-plugin</artifactId>
+                <version>4.4.0</version>
+            </plugin>
+            <plugin>
+                <groupId>net.alchim31.maven</groupId>
+                <artifactId>scala-maven-plugin</artifactId>
+                <version>4.4.0</version>
                 <configuration>
-                    <reportsDirectory>${project.build.directory}/surefire-reports</reportsDirectory>
-                    <junitxml>junit</junitxml>
-                    <filereports>TestSuite.txt</filereports>
+                    <args>
+                        <arg>-unchecked</arg>
+                        <arg>-deprecation</arg>
+                        <arg>-explaintypes</arg>
+                    </args>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>net.alchim31.maven</groupId>
+                <artifactId>scala-maven-plugin</artifactId>
                 <executions>
                     <execution>
-                        <id>test</id>
+                        <id>scala-compile-first</id>
+                        <phase>process-resources</phase>
                         <goals>
-                            <goal>test</goal>
+                            <goal>add-source</goal>
+                            <goal>compile</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>scala-test-compile</id>
+                        <phase>process-test-resources</phase>
+                        <goals>
+                            <goal>testCompile</goal>
                         </goals>
                     </execution>
                 </executions>
